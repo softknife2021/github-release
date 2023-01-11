@@ -14,10 +14,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling()
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @OpenAPIDefinition(info = @Info(title = "Infra API", version = "1.0", description = "Car IQ Infra"))
-public class ReleaseNotesApp {
+public class GitHubReleaseApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReleaseNotesApp.class, args);
+		SpringApplication.run(GitHubReleaseApp.class, args);
 	}
 
 }

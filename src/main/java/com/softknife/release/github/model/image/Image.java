@@ -3,7 +3,6 @@ package com.softknife.release.github.model.image;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import javax.annotation.Generated;
 import java.util.List;
 
 @Data

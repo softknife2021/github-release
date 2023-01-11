@@ -55,7 +55,7 @@ public class GitHubServiceImpl {
                 logger.info("Found commits for repo {}", repo);
                 List<GitCommit> gitCommits = new ArrayList<>();
                 for (GHCommit ghCommit : listOptional.get()) {
-                    if (!excludeBasedOnPath(ghCommit, commitsSince.getPathExclusion())) {
+                    if (excludeBasedOnPath(ghCommit, commitsSince.getPathExclusion())) {
                         if (!StringUtils.startsWith(ghCommit.getCommitShortInfo().getMessage(), "Merge")) {
                             gitCommits.add(gitReportHelper.buildGitCommit(ghCommit));
                         }
@@ -90,7 +90,7 @@ public class GitHubServiceImpl {
                 logger.info("Found commits for repo {}", repo);
                 List<GitCommit> gitCommits = new ArrayList<>();
                 for (GHCommit ghCommit : listOptional.get()) {
-                    if (!excludeBasedOnPath(ghCommit, commitsSinceUntil.getPathExclusion())) {
+                    if (excludeBasedOnPath(ghCommit, commitsSinceUntil.getPathExclusion())) {
                         if (!StringUtils.startsWith(ghCommit.getCommitShortInfo().getMessage(), "Merge")) {
                             gitCommits.add(gitReportHelper.buildGitCommit(ghCommit));
                         }
@@ -112,6 +112,7 @@ public class GitHubServiceImpl {
 
     }
 
+
     private boolean excludeBasedOnPath(GHCommit ghCommit, List<String> pathExclusion) throws IOException {
         boolean result = false;
         int fileMatchCounter = 0;
@@ -124,9 +125,9 @@ public class GitHubServiceImpl {
             }
         }
         if (fileMatchCounter == fileActualSize) {
-            return true;
+            return false;
         }
-        return result;
+        return !result;
     }
 
     public List<BranchCompare> compareBranches(CompareBranches cp) {

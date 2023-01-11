@@ -29,8 +29,8 @@ public class GitHubController {
 
 
     @PostMapping(value = "/compare")
-    public ResponseEntity<List<BranchCompare>> compareBranches(@RequestBody final CompareBranches compareBranches) throws IOException {
-        ;
+    public ResponseEntity<List<BranchCompare>> compareBranches(@RequestBody final CompareBranches compareBranches) {
+
         return new ResponseEntity<List<BranchCompare>>(gitHubService.compareBranches(compareBranches),HttpStatus.OK);
     }
 

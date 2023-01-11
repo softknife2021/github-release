@@ -8,9 +8,10 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.nio.charset.StandardCharsets;
 
 
-@SpringBootTest(classes = ReleaseNotesApp.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = GitHubReleaseApp.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 class ReleaseNotesTest {
 
@@ -18,7 +19,7 @@ class ReleaseNotesTest {
 
 	public String readFile(String fileName) throws IOException {
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		return IOUtils.toString(classloader.getResourceAsStream(fileName), "UTF-8");
+		return IOUtils.toString(classloader.getResourceAsStream(fileName), StandardCharsets.UTF_8);
 	}
 
 }

@@ -15,7 +15,7 @@ public enum ReportType {
     /**
      * @param name
      */
-    private ReportType(final String name) {
+    ReportType(final String name) {
         this.name = name;
     }
 
