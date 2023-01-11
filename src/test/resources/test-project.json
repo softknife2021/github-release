@@ -1,0 +1,21 @@
+{
+  "project": "project1",
+  "env": "env",
+  "version": "version",
+  "services": [
+    {
+      "name": "lambda-hello-world",
+      "version": "0.0.1",
+      "gitRepoUrl": "https://github.com/Alexander1972/aws-lambda-java-tf.git",
+      "jiraProject": "jiraProject",
+      "healthCheckUrl": "url",
+      "branchName": "master",
+      "jobProperties": "jobProperites",
+      "serviceType": "lambda",
+      "gitUser": "Alexander1972",
+      "gitPass": "pass",
+      "gitRepoName": "aws-lambda-java-tf",
+      "terraformRootDir": "terraform"
+    }
+  ]
+}
