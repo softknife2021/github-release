@@ -1,0 +1,45 @@
+---
+server:
+  port: 8080
+
+security:
+  user: "${APP_USER}"
+  password: "${APP_PASS}"
+
+# Spring Boot configuration
+spring:
+  profiles:
+    active: local
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+  level:
+    org.springframework: info
+#  servlet:
+#    context-path: /gihub
+
+app:
+  swaggerHost: "${SWAGGER_HOST}"
+  deployEnv: "${TARGET_ENV}"
+  gitHubAuthToken: "${GITHUB_AUTH_TOKEN}"
+  slackWebHook: "${SLACK_WEBHOOK}"
+  jiraUrl: "${JIRA_URL}"
+  jiraUser: "${JIRA_USER}"
+  jiraPassword: "${JIRA_PASS}"
+  jiraDefaultComponents: whatever
+  jiraDeafultIssueTypeId: 10004
+  jiraDefaultPriorityId: 2
+  jiraDefaultProjectId: ID
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: cloud
+app:
+  swaggerHostDefault: "https://domain.com"
