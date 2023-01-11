@@ -35,14 +35,17 @@ import java.util.stream.StreamSupport;
 @Service("jiraService")
 public class JiraServiceImpl {
 
-    @Autowired
-    private JiraHelper jiraHelper;
+    private final JiraHelper jiraHelper;
 
     @Autowired
     private AppProp appProp;
 
     private static final Logger logger =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+    public JiraServiceImpl(JiraHelper jiraHelper) {
+        this.jiraHelper = jiraHelper;
+    }
 
     public String getJiraStatus(String jiraId) throws RecordNotFound {
         Optional<Issue> optionalIssue = jiraHelper.findIssueByIssueId(jiraId);

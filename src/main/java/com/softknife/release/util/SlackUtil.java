@@ -28,15 +28,12 @@ public class SlackUtil {
     private AppProp appProp;
 
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-    private final String COLOR_FAILED = "#FF0000";
-    private final String COLOR_PASSED = "#32CD32";
-    private final String COLOR_SKIPPED = "#FFFF00";
 
     private void postToSlack(com.github.seratch.jslack.api.webhook.Payload payload) {
         try {
             slack.send(appProp.getSlackWebHook(), (com.github.seratch.jslack.api.webhook.Payload) payload);
         } catch (IOException e) {
-            logger.error("Some shit happened on the way to Slack : ", e.getMessage());
+            logger.error("Failed to send message to Slack : ", e.getMessage());
         }
     }
 
@@ -57,7 +54,7 @@ public class SlackUtil {
                 .color("#1F45FC")
                 .build();
         attachments.add(summaryAttachment);
-        buildAttachment(gitReport, attachments, COLOR_PASSED);
+        buildAttachment(gitReport, attachments);
         return attachments;
 
     }
@@ -69,11 +66,11 @@ public class SlackUtil {
     }
 
 
-    private void buildAttachment(GitReport gitReport, List<Attachment> attachments, String colorCode) {
+    private void buildAttachment(GitReport gitReport, List<Attachment> attachments) {
         Attachment attachment;
         for (GitCommit gitCommit : gitReport.getGitCommits()) {
             attachment = Attachment.builder()
-                    .color(colorCode)
+                    .color("#32CD32")
                     .title(gitCommit.getJiraId() + " in : " + gitCommit.getJiraStatus())
                     .titleLink(gitCommit.getJiraId())
                     .authorName(gitCommit.getAuthor())

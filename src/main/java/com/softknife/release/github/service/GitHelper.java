@@ -1,8 +1,6 @@
 package com.softknife.release.github.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.softknife.release.github.model.image.ImageMetaData;
-import com.softknife.release.util.AppHelper;
 import org.kohsuke.github.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +9,10 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author amatsaylo on 2019-05-10
@@ -22,12 +23,6 @@ public class GitHelper {
 
     @Resource
     private GitHub gitHub;
-
-    @Resource
-    private ObjectMapper objectMapper;
-
-    @Resource
-    private AppHelper appHelper;
 
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -82,25 +77,6 @@ public class GitHelper {
         return Optional.empty();
     }
 
-
-    protected Map<String, ImageMetaData> applyModuleFilter(List<GHContent> ghContents, List<String> appNames) {
-
-        Map<String, ImageMetaData> matchedApplications = new TreeMap();
-        for (GHContent ghContent : ghContents) {
-            String ghContentName = ghContent.getName().split("\\.")[0];
-            for (String appName : appNames) {
-                if (ghContentName.equalsIgnoreCase(appName)) {
-                    try {
-                        logger.info("Found image metadata for appName :{}", appName);
-                        matchedApplications.put(appName, objectMapper.readValue(appHelper.ymlToJson(ghContent.getContent()), ImageMetaData.class));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-        return matchedApplications;
-    }
 
     protected Optional<List<GHContent>> getGHContent(String orgName, String repoName, String fileName, String branchName) throws IOException {
         return Optional.ofNullable(gitHub.getOrganization(orgName)

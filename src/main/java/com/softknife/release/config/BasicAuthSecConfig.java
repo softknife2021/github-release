@@ -21,11 +21,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class BasicAuthSecConfig {
 
-    @Autowired
-    private BasicAuthEntry authenticationEntryPoint;
-    @Autowired
-    private SecurityProp securityProp;
+    private final BasicAuthEntry authenticationEntryPoint;
+    private final SecurityProp securityProp;
     private static final String[] ACTUATOR_WHITELIST = {"/actuator/**", "/v3/api-docs"};
+
+    public BasicAuthSecConfig(BasicAuthEntry authenticationEntryPoint, SecurityProp securityProp) {
+        this.authenticationEntryPoint = authenticationEntryPoint;
+        this.securityProp = securityProp;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

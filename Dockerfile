@@ -11,6 +11,6 @@ WORKDIR /home/app
 RUN mkdir /home/app/config
 COPY --chown=app ./src/main/resources /home/app/src/main/resources
 COPY --chown=app ./entrypoint.sh /home/app/entrypoint.sh
-COPY --chown=app ./build/libs/release-notes-0.0.1-SNAPSHOT.jar /home/app/app.jar
+COPY --chown=app ./build/libs/github-release-0.0.1-SNAPSHOT.jar /home/app/app.jar
 
 ENTRYPOINT ["/home/app/entrypoint.sh"]
